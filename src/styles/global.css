@@ -1,0 +1,45 @@
+@import './variables.css';
+
+/* Additional global styles */
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--border-radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-primary-light);
+  color: white;
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+  }
+  
+  .no-print {
+    display: none;
+  }
+}

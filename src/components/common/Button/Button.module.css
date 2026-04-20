@@ -1,0 +1,93 @@
+.button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: inherit;
+}
+
+.button:focus {
+  outline: 2px solid #2196f3;
+  outline-offset: 2px;
+}
+
+/* Variants */
+.primary {
+  background-color: #2196f3;
+  color: white;
+}
+
+.primary:hover:not(.disabled) {
+  background-color: #1976d2;
+}
+
+.secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.secondary:hover:not(.disabled) {
+  background-color: #5a6268;
+}
+
+.success {
+  background-color: #4caf50;
+  color: white;
+}
+
+.success:hover:not(.disabled) {
+  background-color: #45a049;
+}
+
+.danger {
+  background-color: #f44336;
+  color: white;
+}
+
+.danger:hover:not(.disabled) {
+  background-color: #da190b;
+}
+
+.outline {
+  background-color: transparent;
+  border: 2px solid #2196f3;
+  color: #2196f3;
+}
+
+.outline:hover:not(.disabled) {
+  background-color: #2196f3;
+  color: white;
+}
+
+/* Sizes */
+.small {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.medium {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.large {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+}
+
+/* States */
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fullWidth {
+  width: 100%;
+}

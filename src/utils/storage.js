@@ -20,6 +20,10 @@ export const setItem = (key, value) => {
     localStorage.setItem(key, serializedValue);
     return true;
   } catch (error) {
+    if (error.name === 'QuotaExceededError') {
+      console.error('localStorage quota exceeded');
+      throw new Error('Storage quota exceeded. Please clear some data.');
+    }
     console.error(`Error setting item ${key} in localStorage:`, error);
     return false;
   }
@@ -70,5 +74,90 @@ export const getSize = () => {
   } catch (error) {
     console.error('Error calculating localStorage size:', error);
     return 0;
+  }
+};
+
+/**
+ * Get all users from localStorage
+ * @returns {Array} Array of user objects
+ */
+export const getAllUsers = () => {
+  try {
+    const users = getItem('users');
+    return Array.isArray(users) ? users : [];
+  } catch (error) {
+    console.error('Error getting all users:', error);
+    return [];
+  }
+};
+
+/**
+ * Get user by email (case-insensitive)
+ * @param {string} email - User email
+ * @returns {Object|null} User object or null
+ */
+export const getUserByEmail = (email) => {
+  try {
+    const users = getAllUsers();
+    const normalizedEmail = email.toLowerCase();
+    return users.find((user) => user.email.toLowerCase() === normalizedEmail) || null;
+  } catch (error) {
+    console.error('Error getting user by email:', error);
+    return null;
+  }
+};
+
+/**
+ * Add new user to localStorage
+ * @param {Object} userData - User data object
+ * @returns {Object} Created user object
+ */
+export const addUser = (userData) => {
+  try {
+    const users = getAllUsers();
+    const newUser = {
+      ...userData,
+      email: userData.email.toLowerCase(),
+      id: `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      createdAt: new Date().toISOString(),
+    };
+    users.push(newUser);
+    setItem('users', users);
+    return newUser;
+  } catch (error) {
+    console.error('Error adding user:', error);
+    throw error;
+  }
+};
+
+/**
+ * Update user in localStorage
+ * @param {string} email - User email
+ * @param {Object} userData - Updated user data
+ * @returns {Object|null} Updated user object or null
+ */
+export const updateUser = (email, userData) => {
+  try {
+    const users = getAllUsers();
+    const normalizedEmail = email.toLowerCase();
+    const userIndex = users.findIndex((user) => user.email.toLowerCase() === normalizedEmail);
+    
+    if (userIndex === -1) {
+      return null;
+    }
+    
+    users[userIndex] = {
+      ...users[userIndex],
+      ...userData,
+      email: users[userIndex].email,
+      id: users[userIndex].id,
+      createdAt: users[userIndex].createdAt,
+    };
+    
+    setItem('users', users);
+    return users[userIndex];
+  } catch (error) {
+    console.error('Error updating user:', error);
+    return null;
   }
 };

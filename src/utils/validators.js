@@ -51,6 +51,14 @@ export const validateMatch = (value1, value2) => {
   return value1 === value2;
 };
 
+export const validateMaxDate = (dateString, maxDate) => {
+  if (!dateString) return false;
+  const inputDate = new Date(dateString);
+  const maxDateObj = new Date(maxDate);
+  if (isNaN(inputDate.getTime()) || isNaN(maxDateObj.getTime())) return false;
+  return inputDate <= maxDateObj;
+};
+
 export const getPasswordStrength = (password) => {
   let strength = 0;
   

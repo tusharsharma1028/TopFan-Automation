@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { login as loginService, logout as logoutService, getCurrentUser } from '../../services/authService';
+import { login as loginService, logout as logoutService, register as registerService, getCurrentUser } from '../../services/authService';
+import { getItem } from '../../utils/storage';
 
 const initialState = {
-  user: null,
-  token: null,
-  isAuthenticated: false,
+  user: getItem('user') || null,
+  token: getItem('token') || null,
+  isAuthenticated: !!(getItem('token') && getItem('user')),
   loading: false,
   error: null,
 };
@@ -13,10 +14,30 @@ export const login = createAsyncThunk(
   'auth/login',
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await loginService(credentials);
+      const normalizedCredentials = {
+        ...credentials,
+        email: credentials.email.toLowerCase(),
+      };
+      const response = await loginService(normalizedCredentials);
       return response;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(error.message || 'Login failed');
+    }
+  }
+);
+
+export const register = createAsyncThunk(
+  'auth/register',
+  async (userData, { rejectWithValue }) => {
+    try {
+      const normalizedUserData = {
+        ...userData,
+        email: userData.email.toLowerCase(),
+      };
+      const response = await registerService(normalizedUserData);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.message || 'Registration failed');
     }
   }
 );
@@ -27,7 +48,7 @@ export const logout = createAsyncThunk(
     try {
       await logoutService();
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(error.message || 'Logout failed');
     }
   }
 );
@@ -39,7 +60,7 @@ export const fetchCurrentUser = createAsyncThunk(
       const response = await getCurrentUser();
       return response;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(error.message || 'Failed to fetch user');
     }
   }
 );
@@ -74,15 +95,35 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isAuthenticated = true;
+        state.error = null;
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.isAuthenticated = false;
+      })
+      .addCase(register.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isAuthenticated = true;
+        state.error = null;
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.isAuthenticated = false;
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.token = null;
         state.isAuthenticated = false;
+        state.loading = false;
+        state.error = null;
       })
       .addCase(fetchCurrentUser.fulfilled, (state, action) => {
         state.user = action.payload;

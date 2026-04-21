@@ -5,3 +5,4 @@ export { default as Header } from './layout/Header/Header';
 export { default as Footer } from './layout/Footer/Footer';
 export { default as Sidebar } from './layout/Sidebar/Sidebar';
 export { default as Layout } from './layout/Layout';
+export { default as ProtectedRoute } from './ProtectedRoute';

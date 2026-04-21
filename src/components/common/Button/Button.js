@@ -1,23 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Button.module.css';
 
 const Button = ({
   children,
   variant = 'primary',
   size = 'medium',
-  onClick,
+  fullWidth = false,
   disabled = false,
   type = 'button',
-  fullWidth = false,
+  onClick,
   className = '',
-  ...props
+  ...rest
 }) => {
   const buttonClasses = [
     styles.button,
     styles[variant],
     styles[size],
     fullWidth ? styles.fullWidth : '',
-    disabled ? styles.disabled : '',
     className,
   ]
     .filter(Boolean)
@@ -27,13 +27,24 @@ const Button = ({
     <button
       type={type}
       className={buttonClasses}
-      onClick={onClick}
       disabled={disabled}
-      {...props}
+      onClick={onClick}
+      {...rest}
     >
       {children}
     </button>
   );
+};
+
+Button.propTypes = {
+  children: PropTypes.node.isRequired,
+  variant: PropTypes.oneOf(['primary', 'secondary', 'outline', 'danger']),
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  fullWidth: PropTypes.bool,
+  disabled: PropTypes.bool,
+  type: PropTypes.oneOf(['button', 'submit', 'reset']),
+  onClick: PropTypes.func,
+  className: PropTypes.string,
 };
 
 export default Button;

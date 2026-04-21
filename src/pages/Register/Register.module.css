@@ -1,0 +1,206 @@
+.register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: #718096;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.passwordWrapper {
+  position: relative;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #718096;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.passwordToggle:hover {
+  color: #4a5568;
+}
+
+.passwordStrength {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.strengthBar {
+  flex: 1;
+  height: 4px;
+  background-color: #e2e8f0;
+  border-radius: 2px;
+  transition: background-color 0.3s;
+}
+
+.strengthBar.active {
+  background-color: #cbd5e0;
+}
+
+.strengthBar.weak {
+  background-color: #fc8181;
+}
+
+.strengthBar.medium {
+  background-color: #f6ad55;
+}
+
+.strengthBar.strong {
+  background-color: #68d391;
+}
+
+.strengthText {
+  font-size: 0.75rem;
+  color: #718096;
+  margin-top: 0.25rem;
+}
+
+.strengthText.weak {
+  color: #c53030;
+}
+
+.strengthText.medium {
+  color: #c05621;
+}
+
+.strengthText.strong {
+  color: #22543d;
+}
+
+.error {
+  background-color: #fed7d7;
+  color: #c53030;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  border-left: 4px solid #fc8181;
+}
+
+.errorText {
+  font-size: 0.75rem;
+  color: #c53030;
+  margin-top: 0.25rem;
+}
+
+.submitButton {
+  margin-top: 0.5rem;
+}
+
+.footer {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.footerText {
+  font-size: 0.875rem;
+  color: #718096;
+}
+
+.link {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 0.25rem;
+}
+
+.link:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+.requirements {
+  font-size: 0.75rem;
+  color: #718096;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: #f7fafc;
+  border-radius: 4px;
+}
+
+.requirements ul {
+  margin: 0.25rem 0 0 1rem;
+  padding: 0;
+}
+
+.requirements li {
+  margin: 0.125rem 0;
+}
+
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  z-index: 10;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+}

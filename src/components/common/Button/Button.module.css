@@ -1,72 +1,60 @@
 .button {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  font-family: inherit;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
 }
 
-.button:focus {
-  outline: 2px solid #2196f3;
-  outline-offset: 2px;
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-/* Variants */
 .primary {
-  background-color: #2196f3;
-  color: white;
+  background-color: #007bff;
+  color: #ffffff;
 }
 
-.primary:hover:not(.disabled) {
-  background-color: #1976d2;
+.primary:hover:not(:disabled) {
+  background-color: #0056b3;
 }
 
 .secondary {
   background-color: #6c757d;
-  color: white;
+  color: #ffffff;
 }
 
-.secondary:hover:not(.disabled) {
+.secondary:hover:not(:disabled) {
   background-color: #5a6268;
-}
-
-.success {
-  background-color: #4caf50;
-  color: white;
-}
-
-.success:hover:not(.disabled) {
-  background-color: #45a049;
-}
-
-.danger {
-  background-color: #f44336;
-  color: white;
-}
-
-.danger:hover:not(.disabled) {
-  background-color: #da190b;
 }
 
 .outline {
   background-color: transparent;
-  border: 2px solid #2196f3;
-  color: #2196f3;
+  color: #007bff;
+  border: 2px solid #007bff;
 }
 
-.outline:hover:not(.disabled) {
-  background-color: #2196f3;
-  color: white;
+.outline:hover:not(:disabled) {
+  background-color: #007bff;
+  color: #ffffff;
 }
 
-/* Sizes */
+.danger {
+  background-color: #dc3545;
+  color: #ffffff;
+}
+
+.danger:hover:not(:disabled) {
+  background-color: #c82333;
+}
+
 .small {
   padding: 0.375rem 0.75rem;
   font-size: 0.875rem;
@@ -80,12 +68,6 @@
 .large {
   padding: 0.75rem 1.5rem;
   font-size: 1.125rem;
-}
-
-/* States */
-.disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 
 .fullWidth {

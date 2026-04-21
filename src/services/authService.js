@@ -1,63 +1,121 @@
-import { post, get } from './api';
+import { getItem, setItem, removeItem, getUserByEmail, addUser } from '../utils/storage';
 
+/**
+ * Generate a mock JWT token
+ * @param {Object} user - User object
+ * @returns {string} Mock JWT token
+ */
+const generateMockToken = (user) => {
+  const payload = {
+    email: user.email,
+    id: user.id,
+    timestamp: Date.now(),
+  };
+  return btoa(JSON.stringify(payload));
+};
+
+/**
+ * Login with email and password
+ * @param {Object} credentials - { email, password }
+ * @returns {Promise<Object>} User and token
+ */
 export const login = async (credentials) => {
   try {
-    const response = await post('/auth/login', credentials);
-    return response;
+    const { email, password } = credentials;
+    const normalizedEmail = email.toLowerCase();
+    
+    const user = getUserByEmail(normalizedEmail);
+    
+    if (!user) {
+      throw new Error('Invalid email or password');
+    }
+    
+    if (user.password !== password) {
+      throw new Error('Invalid email or password');
+    }
+    
+    const token = generateMockToken(user);
+    const userWithoutPassword = {
+      email: user.email,
+      id: user.id,
+      createdAt: user.createdAt,
+    };
+    
+    setItem('token', token);
+    setItem('user', userWithoutPassword);
+    
+    return {
+      user: userWithoutPassword,
+      token,
+    };
   } catch (error) {
     throw error;
   }
 };
 
+/**
+ * Register new user
+ * @param {Object} userData - { email, password }
+ * @returns {Promise<Object>} User and token
+ */
 export const register = async (userData) => {
   try {
-    const response = await post('/auth/register', userData);
-    return response;
+    const { email, password } = userData;
+    const normalizedEmail = email.toLowerCase();
+    
+    const existingUser = getUserByEmail(normalizedEmail);
+    if (existingUser) {
+      throw new Error('Email already registered');
+    }
+    
+    const newUser = addUser({
+      email: normalizedEmail,
+      password,
+    });
+    
+    const token = generateMockToken(newUser);
+    const userWithoutPassword = {
+      email: newUser.email,
+      id: newUser.id,
+      createdAt: newUser.createdAt,
+    };
+    
+    setItem('token', token);
+    setItem('user', userWithoutPassword);
+    
+    return {
+      user: userWithoutPassword,
+      token,
+    };
   } catch (error) {
     throw error;
   }
 };
 
+/**
+ * Logout user
+ * @returns {Promise<void>}
+ */
 export const logout = async () => {
   try {
-    const response = await post('/auth/logout');
-    return response;
+    removeItem('token');
+    removeItem('user');
   } catch (error) {
     throw error;
   }
 };
 
-export const refreshToken = async (refreshToken) => {
-  try {
-    const response = await post('/auth/refresh', { refreshToken });
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
-
+/**
+ * Get current user from localStorage
+ * @returns {Promise<Object>} Current user
+ */
 export const getCurrentUser = async () => {
   try {
-    const response = await get('/auth/me');
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const forgotPassword = async (email) => {
-  try {
-    const response = await post('/auth/forgot-password', { email });
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const resetPassword = async (token, newPassword) => {
-  try {
-    const response = await post('/auth/reset-password', { token, newPassword });
-    return response;
+    const user = getItem('user');
+    if (!user) {
+      throw new Error('No user found');
+    }
+    return user;
   } catch (error) {
     throw error;
   }

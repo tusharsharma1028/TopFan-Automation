@@ -1,11 +1,17 @@
 .home {
-  max-width: 1200px;
-  margin: 0 auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
 }
 
 .hero {
+  width: 100%;
+  max-width: 1200px;
+  padding: 80px 20px;
   text-align: center;
-  padding: 4rem 1rem;
+  background-color: #ffffff;
 }
 
 .title {
@@ -17,11 +23,9 @@
 
 .subtitle {
   font-size: 1.25rem;
-  color: #6c757d;
+  color: #666666;
   margin-bottom: 2rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  line-height: 1.6;
 }
 
 .buttonGroup {
@@ -32,27 +36,31 @@
 }
 
 .features {
+  width: 100%;
+  max-width: 1200px;
+  padding: 60px 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  padding: 3rem 1rem;
+  background-color: #f9f9f9;
 }
 
 .feature {
-  text-align: center;
   padding: 2rem;
-  background-color: #f8f9fa;
+  text-align: center;
+  background-color: #ffffff;
   border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .feature h3 {
   font-size: 1.5rem;
-  color: #2196f3;
+  color: #333333;
   margin-bottom: 1rem;
 }
 
 .feature p {
-  color: #6c757d;
+  color: #666666;
   line-height: 1.6;
 }
 
@@ -65,12 +73,8 @@
     font-size: 1rem;
   }
 
-  .hero {
-    padding: 2rem 1rem;
-  }
-
-  .features {
-    padding: 2rem 1rem;
-    gap: 1rem;
+  .buttonGroup {
+    flex-direction: column;
+    align-items: center;
   }
 }

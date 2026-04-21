@@ -1,19 +1,19 @@
 .register {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  padding: 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  background-color: #f5f5f5;
 }
 
 .container {
   width: 100%;
-  max-width: 420px;
-  background: white;
+  max-width: 400px;
+  padding: 40px;
+  background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  padding: 2.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .header {
@@ -22,21 +22,30 @@
 }
 
 .title {
-  font-size: 1.875rem;
+  font-size: 2rem;
   font-weight: 700;
-  color: #1a202c;
+  color: #333333;
   margin-bottom: 0.5rem;
 }
 
 .subtitle {
-  font-size: 0.875rem;
-  color: #718096;
+  font-size: 1rem;
+  color: #666666;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.5rem;
+}
+
+.error {
+  padding: 12px;
+  background-color: #fee;
+  border: 1px solid #fcc;
+  border-radius: 4px;
+  color: #c33;
+  font-size: 0.875rem;
 }
 
 .inputGroup {
@@ -48,7 +57,7 @@
 .label {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #2d3748;
+  color: #333333;
 }
 
 .passwordWrapper {
@@ -63,122 +72,95 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #718096;
-  padding: 0.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.passwordToggle:hover {
-  color: #4a5568;
+  font-size: 1.25rem;
+  padding: 4px;
 }
 
 .passwordStrength {
   display: flex;
-  gap: 0.5rem;
+  gap: 4px;
   margin-top: 0.5rem;
 }
 
 .strengthBar {
   flex: 1;
   height: 4px;
-  background-color: #e2e8f0;
+  background-color: #e0e0e0;
   border-radius: 2px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
-.strengthBar.active {
-  background-color: #cbd5e0;
+.strengthBar.active.weak {
+  background-color: #f44336;
 }
 
-.strengthBar.weak {
-  background-color: #fc8181;
+.strengthBar.active.medium {
+  background-color: #ff9800;
 }
 
-.strengthBar.medium {
-  background-color: #f6ad55;
-}
-
-.strengthBar.strong {
-  background-color: #68d391;
+.strengthBar.active.strong {
+  background-color: #4caf50;
 }
 
 .strengthText {
   font-size: 0.75rem;
-  color: #718096;
   margin-top: 0.25rem;
 }
 
 .strengthText.weak {
-  color: #c53030;
+  color: #f44336;
 }
 
 .strengthText.medium {
-  color: #c05621;
+  color: #ff9800;
 }
 
 .strengthText.strong {
-  color: #22543d;
+  color: #4caf50;
 }
 
-.error {
-  background-color: #fed7d7;
-  color: #c53030;
-  padding: 0.75rem 1rem;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  border-left: 4px solid #fc8181;
-}
-
-.errorText {
+.requirements {
   font-size: 0.75rem;
-  color: #c53030;
-  margin-top: 0.25rem;
-}
-
-.submitButton {
+  color: #666666;
   margin-top: 0.5rem;
 }
 
+.requirements ul {
+  margin-top: 0.25rem;
+  margin-left: 1.25rem;
+}
+
+.requirements li {
+  margin-top: 0.25rem;
+}
+
+.errorText {
+  color: #c33;
+  font-size: 0.75rem;
+}
+
+.submitButton {
+  margin-top: 1rem;
+}
+
 .footer {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   text-align: center;
 }
 
 .footerText {
   font-size: 0.875rem;
-  color: #718096;
+  color: #666666;
 }
 
 .link {
-  color: #667eea;
+  color: #007bff;
   text-decoration: none;
-  font-weight: 600;
   margin-left: 0.25rem;
 }
 
 .link:hover {
-  color: #764ba2;
   text-decoration: underline;
-}
-
-.requirements {
-  font-size: 0.75rem;
-  color: #718096;
-  margin-top: 0.5rem;
-  padding: 0.5rem;
-  background-color: #f7fafc;
-  border-radius: 4px;
-}
-
-.requirements ul {
-  margin: 0.25rem 0 0 1rem;
-  padding: 0;
-}
-
-.requirements li {
-  margin: 0.125rem 0;
 }
 
 .loadingOverlay {
@@ -187,20 +169,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 8px;
-  z-index: 10;
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 1.5rem;
-  }
-
-  .title {
-    font-size: 1.5rem;
-  }
 }

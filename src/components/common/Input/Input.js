@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Input.module.css';
 
 const Input = ({
@@ -6,46 +7,40 @@ const Input = ({
   value,
   onChange,
   placeholder = '',
-  error = '',
-  label = '',
-  name = '',
-  id = '',
   disabled = false,
-  required = false,
+  error = false,
   className = '',
-  ...props
+  ...rest
 }) => {
-  const inputId = id || name || `input-${Date.now()}`;
+  const inputClasses = [
+    styles.input,
+    error ? styles.error : '',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
-    <div className={`${styles.inputWrapper} ${className}`}>
-      {label && (
-        <label htmlFor={inputId} className={styles.label}>
-          {label}
-          {required && <span className={styles.required}>*</span>}
-        </label>
-      )}
-      <input
-        type={type}
-        id={inputId}
-        name={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        disabled={disabled}
-        required={required}
-        className={`${styles.input} ${error ? styles.error : ''}`}
-        aria-invalid={!!error}
-        aria-describedby={error ? `${inputId}-error` : undefined}
-        {...props}
-      />
-      {error && (
-        <span id={`${inputId}-error`} className={styles.errorMessage} role="alert">
-          {error}
-        </span>
-      )}
-    </div>
+    <input
+      type={type}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      disabled={disabled}
+      className={inputClasses}
+      {...rest}
+    />
   );
+};
+
+Input.propTypes = {
+  type: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  className: PropTypes.string,
 };
 
 export default Input;

@@ -1,44 +1,38 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import Button from '../../common/Button/Button';
 import { ROUTES } from '../../../routes/RouteConfig';
 import styles from './Header.module.css';
 
 const Header = () => {
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
-    try {
-      await logout();
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
+    await logout();
+    navigate(ROUTES.LOGIN);
   };
 
   return (
     <header className={styles.header}>
       <div className={styles.container}>
         <Link to={ROUTES.HOME} className={styles.logo}>
-          TopFan Automation
+          TopFan
         </Link>
-        
         <nav className={styles.nav}>
           {isAuthenticated ? (
             <>
-              <span className={styles.userEmail}>{user?.email}</span>
               <Link to={ROUTES.DASHBOARD} className={styles.navLink}>
                 Dashboard
               </Link>
               <Link to={ROUTES.PROFILE} className={styles.navLink}>
                 Profile
               </Link>
-              <Button
-                variant="outline"
-                size="small"
-                onClick={handleLogout}
-                aria-label="Logout"
-              >
+              <Link to={ROUTES.SETTINGS} className={styles.navLink}>
+                Settings
+              </Link>
+              <Button variant="outline" size="small" onClick={handleLogout}>
                 Logout
               </Button>
             </>

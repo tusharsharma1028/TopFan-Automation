@@ -1,29 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Loader.module.css';
 
-const Loader = ({ size = 'medium', fullscreen = false, text = '' }) => {
-  const loaderClasses = [
-    styles.loader,
-    styles[size],
-  ].filter(Boolean).join(' ');
+const Loader = ({ fullscreen = false, size = 'medium' }) => {
+  const loaderClasses = [styles.loader, styles[size]].filter(Boolean).join(' ');
 
   if (fullscreen) {
     return (
-      <div className={styles.fullscreenWrapper}>
-        <div className={styles.loaderContainer}>
-          <div className={loaderClasses}></div>
-          {text && <p className={styles.text}>{text}</p>}
-        </div>
+      <div className={styles.fullscreen} data-testid="loader">
+        <div className={loaderClasses}></div>
       </div>
     );
   }
 
-  return (
-    <div className={styles.loaderContainer}>
-      <div className={loaderClasses}></div>
-      {text && <p className={styles.text}>{text}</p>}
-    </div>
-  );
+  return <div className={loaderClasses} data-testid="loader"></div>;
+};
+
+Loader.propTypes = {
+  fullscreen: PropTypes.bool,
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
 };
 
 export default Loader;

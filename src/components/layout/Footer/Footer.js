@@ -1,26 +1,27 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../../../routes/RouteConfig';
 import styles from './Footer.module.css';
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
   return (
     <footer className={styles.footer}>
-      <div className={styles.container}>
-        <p className={styles.copyright}>
-          © {currentYear} TopFan Automation. All rights reserved.
-        </p>
+      <div className={styles.content}>
         <div className={styles.links}>
-          <a href="#" className={styles.link}>
-            Privacy Policy
-          </a>
-          <a href="#" className={styles.link}>
-            Terms of Service
-          </a>
-          <a href="#" className={styles.link}>
+          <Link to={ROUTES.HOME} className={styles.link}>
+            Home
+          </Link>
+          <Link to="/about" className={styles.link}>
+            About
+          </Link>
+          <Link to="/contact" className={styles.link}>
             Contact
-          </a>
+          </Link>
+          <Link to="/privacy" className={styles.link}>
+            Privacy Policy
+          </Link>
         </div>
+        <p>&copy; {new Date().getFullYear()} TopFan Automation. All rights reserved.</p>
       </div>
     </footer>
   );
